@@ -4,21 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body>
-    <h1>TypeScript</h1>
-    <form>
-      <div>
-        <label>Name:</label>
-        <br />
-        <input name="name" type="text" />
+    <div class="todo">
+      <div class="todo__logos">
+        <h1 class="todo__logo">TODO</h1>
+        <button class="todo__sun">
+          <img src="./images/icon-moon.svg" alt="" />
+        </button>
       </div>
-      <div>
-        <label>Age:</label>
-        <br />
-        <input name="age" type="text" />
+      <input class="todo__inut" type="text" placeholder="Create a new todo…" />
+      <div class="complete__box">
+        <img src="./images/icon-cha.svg" alt="" class="complete__img" />
+        <p class="complete__text">Complete online JavaScript course</p>
       </div>
-      <button></button>
-    </form>
+
+      <div class="todo__container hidden">
+        <ul class="todo__list"></ul>
+        <div class="active__content">
+          <h3 class="active__title">0 items left</h3>
+          <ul class="active__list">
+            <li class="active__item">
+              <button class="active__btn">All</button>
+            </li>
+            <li class="active__item">
+              <button class="active__btn">Active</button>
+            </li>
+            <li class="active__item">
+              <button class="active__btn">Completed</button>
+            </li>
+          </ul>
+          <button class="active__clear">Clear Completed</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Todo itemlar shu yerda chiqadi -->
+    <main></main>
+
+    <p class="todo__footer">Drag and drop to reorder list</p>
+    <script type="module" src="./dist/app.js"></script>
   </body>
 </html>

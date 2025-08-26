@@ -1,35 +1,59 @@
-// const input = document.querySelector("input")as HTMLInputElement
+const input = document.querySelector(".todo__inut") as HTMLInputElement;
+const container = document.querySelector(".todo__container") as HTMLDivElement;
+const list = document.querySelector(".todo__list") as HTMLUListElement;
+const counter = document.querySelector(".active__title") as HTMLHeadingElement;
+const themeBtn = document.querySelector(".todo__sun") as HTMLButtonElement;
 
-// input.addEventListener(("input", (e)=>{
-//   console.log(e.target.valeu)
-// }))
-
-const form = document.querySelector("form") as HTMLFormElement;
-
-type User = {
-  id: number;
-  name: string;
-  age: number;
-};
-
-let users: User[] = [];
-
-function renderUsers(users: User[]) {
-  users.forEach((item: User) => {
-    const { id, name, age };
-  });
+function updateCounter() {
+  const count = list.children.length;
+  counter.textContent = `${count} items left`;
 }
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
+// 🔥 Dark / Light toggle
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
 
-  const name = formData.get("name");
-  const age = formData.get("age");
+  const img = themeBtn.querySelector("img") as HTMLImageElement;
+  if (document.body.classList.contains("dark-mode")) {
+    img.src = "./images/icon-sun.svg"; // agar dark bo‘lsa -> quyosh
+  } else {
+    img.src = "./images/icon-moon.svg"; // agar light bo‘lsa -> oycha
+  }
+});
 
-  users.push({
-    id: Math.random(),
-    name: (name ?? "").toString,
-    age: (age ?? "").toString,
-  });
+input.addEventListener("keypress", (e: KeyboardEvent) => {
+  if (e.key === "Enter" && input.value.trim() !== "") {
+    if (container.classList.contains("hidden")) {
+      container.classList.remove("hidden");
+    }
+
+    const li: HTMLLIElement = document.createElement("li");
+    li.classList.add("todo__item");
+
+    const span: HTMLSpanElement = document.createElement("span");
+    span.textContent = input.value.trim();
+    span.classList.add("todo__text");
+
+    const deleteBtn: HTMLButtonElement = document.createElement("button");
+    deleteBtn.textContent = "✕";
+    deleteBtn.classList.add("delete__btn");
+
+    deleteBtn.addEventListener("click", () => {
+      li.remove();
+
+      if (list.children.length === 0) {
+        container.classList.add("hidden");
+      }
+
+      updateCounter();
+    });
+
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+    list.appendChild(li);
+
+    input.value = "";
+
+    updateCounter();
+  }
 });
